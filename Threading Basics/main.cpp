@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <pthread.h>
-
+#include <stdio.h>
 using namespace std;
 
 #define NUM_THREADS     5
@@ -19,9 +19,14 @@ int main () {
    int i;
 	
    for( i=0; i < NUM_THREADS; i++ ){
-      cout << "main() : creating thread, " << i << endl;
+      cout << "\n creating thread, " << i << endl;
       rc = pthread_create(&threads[i], NULL, PrintHello, (void *)i);
-
+		
+      if (rc){
+         cout << "Error:unable to create thread," << rc << endl;
+         exit(-1);
+      }
    }
-
+	
+   pthread_exit(NULL);
 }
